@@ -3,7 +3,11 @@ const cheerio = require('cheerio')
 searchInElement = (body, element) => {
     return new Promise((resolve, reject) => {
         let $ = cheerio.load(body)
-        let linksInElement = $(element).find('a')
+        let component = $(element)
+        if (component.length === 0) {
+            component = $(`#${element}`)
+        }
+        let linksInElement = component.find('a')
         if (linksInElement === undefined) {
             resolve(null)
         }
@@ -22,7 +26,7 @@ searchInElement = (body, element) => {
             resolve(null)
         }
         let socialLinks = cleanResults.filter(el => {
-            return (el.includes('facebook') || el.includes('instagram') || el.includes('pinterest'))
+            return (el.includes('facebook') || el.includes('instagram') || el.includes('pinterest') || el.includes('twitter'))
         })
         if (socialLinks.length === 0) {
             resolve(null)
@@ -30,7 +34,8 @@ searchInElement = (body, element) => {
         let resultObj = {
             'Facebook': undefined,
             'Instagram': undefined,
-            'Pinterest': undefined
+            'Pinterest': undefined,
+            'Twitter': undefined
         }
         let categorizer = socialLinks.forEach(element => {
             if (element.includes('facebook')) {
@@ -41,6 +46,9 @@ searchInElement = (body, element) => {
             }
             else if (element.includes('pinterest')) {
                 resultObj.Pinterest = element
+            }
+            else if (element.includes('twitter')) {
+                resultObj.Twitter = element
             }
         })
         resolve(resultObj)

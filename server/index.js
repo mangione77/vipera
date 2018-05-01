@@ -1,33 +1,14 @@
-const axios = require('axios')
-const searchInElement = require('./searchInElement')
+require('dotenv').config()
+const express = require('express')
+const cors = require('cors')
+const bodyParser = require('body-parser')
+const app = express()
+const crawlerRoutes = require('./routes/crawlerRoutes')
 
-startCrawl = async (url) => {
-    try {
-        let response = await axios.get(url)
-        let responseObj = {
-            'site': url,
-            'socialLinks': undefined,
-            'contact': undefined
-        }
-        let headerResult = await searchInElement(response.data, 'header')
-        if (headerResult !== null) {
-            responseObj.socialLinks = headerResult
-        }
-        else {
-            let footerResult = await searchInElement(response.data, 'footer')
-            if (footerResult !== null) {
-                responseObj.socialLinks = footerResult
-            }
-            else {
-                throw new Error('No social link was found in ' + url)
-            }
-        }
-        console.log(responseObj)
-    }
-    catch (err) {
-        console.log(err)
-    }
-}
+app.use(cors())
+app.use(bodyParser.json())
+app.use('/api', crawlerRoutes)
 
-startCrawl('http://madeinjoyland.com')
-
+app.listen(process.env.PORT, () => {
+    console.log(`Listening in ${process.env.PORT}`)
+})
