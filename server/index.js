@@ -1,21 +1,33 @@
-const Crawler = require('simplecrawler')
+const axios = require('axios')
+const searchInElement = require('./searchInElement')
 
-startCrawl = (url) => {
-    let crawler = new Crawler(url)
-    let URLS = []
-    crawler.maxDepth = 10
-    let counter = 0
-    crawler.on('fetchcomplete', (response) => {
-        ++counter
-        console.log('> Finished crawling one URL. Nº: ', counter)
-        URLS.push(response.url)
-    })
-    crawler.on('complete', () => {
-        console.log('finished')
-        console.log(URLS)
-    })
-    crawler.start()
+startCrawl = async (url) => {
+    try {
+        let response = await axios.get(url)
+        let responseObj = {
+            'site': url,
+            'socialLinks': undefined,
+            'contact': undefined
+        }
+        let headerResult = await searchInElement(response.data, 'header')
+        if (headerResult !== null) {
+            responseObj.socialLinks = headerResult
+        }
+        else {
+            let footerResult = await searchInElement(response.data, 'footer')
+            if (footerResult !== null) {
+                responseObj.socialLinks = footerResult
+            }
+            else {
+                throw new Error('No social link was found in ' + url)
+            }
+        }
+        console.log(responseObj)
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
-startCrawl('http://calmahouse.com')
+startCrawl('http://madeinjoyland.com')
 
