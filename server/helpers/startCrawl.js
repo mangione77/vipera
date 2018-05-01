@@ -4,6 +4,9 @@ const searchInElement = require('./searchInElement')
 startCrawl = async (url) => {
     try {
         let response = await axios.get(url)
+        if (response.data.length === 0) {
+            throw new Error('No response data to parse from source ' + url)
+        }
         let responseObj = {
             'site': url,
             'socialLinks': undefined,

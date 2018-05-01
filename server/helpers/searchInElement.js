@@ -6,6 +6,9 @@ searchInElement = (body, element) => {
         let component = $(element)
         if (component.length === 0) {
             component = $(`#${element}`)
+            if (component.length === 0)  {
+                component = $(`.${element}`)
+            }
         }
         let linksInElement = component.find('a')
         if (linksInElement === undefined) {
