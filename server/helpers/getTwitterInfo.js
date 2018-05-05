@@ -10,9 +10,8 @@ const twitter = new Twit({
 
 const getTwitterInfo = (username) => {
     return new Promise((resolve,reject) => {
-        twitter.get('users/show', { screen_name: username }, (err,data,response) => {
-            if (err) console.log(err)
-
+        twitter.get('users/show', { screen_name: username }, (err,data) => {
+            if (err) reject(err)
             let resultObj = {
                 'username': username,
                 'url': `http://twitter.com/${username}`,
@@ -28,12 +27,10 @@ const getTwitterInfo = (username) => {
                     'isDefault': data.default_profile
                 }
             }
-            console.log(resultObj)
+            resolve(resultObj)
         })
     })
 }
-
-getTwitterInfo('pccomponentes')
 
 module.exports = getTwitterInfo
    
