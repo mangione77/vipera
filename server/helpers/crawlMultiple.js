@@ -1,20 +1,16 @@
 const startCrawl = require('./startCrawl')
 
-const crawlMultiple = async (sites) => {
-    try {
+const crawlMultiple = (sites) => {
+    return new Promise((resolve, reject) => {
         let promises = sites.map(startCrawl)
         Promise.all(promises)
             .then(result => {
-                console.log(result)
-                return result
+                resolve(result)
             })
             .catch(err => {
-                throw(err)
+                reject(err)
             })
-    }
-    catch (err) {
-        throw(err)
-    }
+    })
 }
 
 module.exports = crawlMultiple
