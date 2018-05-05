@@ -1,5 +1,6 @@
 const getTwitterInfo = require('../helpers/getTwitterInfo')
 const getInstagramInfo = require('../helpers/getInstagramInfo')
+const getFullInfo = require('../helpers/getFullInfo') 
 const socialController = {}
 
 socialController.getTwitterInfo = async (req,res) => {
@@ -23,5 +24,16 @@ socialController.getInstagramInfo = async (req,res) => {
         res.send({ "status": err.status, "error": err.message })
     }
 }
+
+socialController.fullInfo = async (req,res) => {
+    try {
+        let { url } = req.body
+        let fullInfo = await getFullInfo(url)
+        res.send({ "status": 200, "data": fullInfo })
+    }
+    catch (err) {
+        res.send({ "status": err.status, "error": err.message })
+    }
+} 
 
 module.exports = socialController
