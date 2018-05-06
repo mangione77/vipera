@@ -8,11 +8,12 @@ options = {
 }
 
 const getPinterestInfo = (username) => {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
         axios.get(`https://www.pinterest.es/${username}/_followers/`)
             .then(response => {
+                console.log(response.data)
                 fs.writeFile('output.html', response.data, (err) => {
-                    if(err) console.log(err)
+                    if (err) console.log(err)
                 })
             })
             .catch(err => {
