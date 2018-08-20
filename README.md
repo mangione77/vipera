@@ -1,51 +1,69 @@
-VIPERA v0.1
-==========
+# Vipera 🐍
 
-## Log
+## Motivation
 
-1. Pinterest not working yet - find workaround or drop completly? (No API access, scraping seems expensive)
-1. 06-05: Starting with EmailFetcher
+In the past, when doing market research for brands, a lot of times I saw myself visiting every site by hand, and looking for social links inside that I would later dump in a spreadsheet. While this is the logical aproach for someone who does not code, it was _really_ time consuming. Not to mention that after putting together all this social links I would have to go to each one of them to find some insights on their profiles.  
 
-## Ideas
+Thats why I started this project: to make this process faster, more reliable and of course, to save time.
 
-1. EMAILFETCHER
+## General Info
 
-Make function like:
+Vipera will help you by searching for you for social links in the sites you input, and then gathering info on those links (like followers, like-count, recent posts, etc). Right now it can pull information from Twitter, Instagram and it's able to do WhoIs lookups. It's in __early__ development, so expect bugs and such. Right now there's no frontend UI - _it's in the works_ - so I suggest you test it out with [Postman](https://www.getpostman.com/) or your favourite HTTP client.
 
+## Known bugs
+
+Obviously, every site is different and the approach may be wrong in many parts, so I welcome suggestions and PR's or collaborations. I will track every bug I found here.
+
+## Docs
+
+The system is divided in two types of routes: ```crawler``` or ```social```. _Crawler_ endpoints will try to find social links, while _Social_ will pull the social links plus all the information it can find on those profiles.
+
+* Crawler routes
+
+_BASE URL_: ```{PROTOCOL}{HOST}:{PORT}/api/crawler```
+
+_Endpoints_:
+
+__Search__: ```{BASE_URL}/search```
+
+This endpoint will try to find social links in the website the user inputs. If none is found, an error will be returned.
+
+__Payload example__:
+
+```js
+{
+	"site": "https://www.zara.com/es/"
+}
 ```
-mailfetcher(URL)
-    siteLanguage = detectSiteLanguage(url)
-    if (siteLanguage) === ES
-        URIs = [ 'sobre-nosotros', 'acerca', 'contacto' ]
-    else if (siteLanguage) === EN    
-        URIs = [ 'about', 'contact' ]
 
-    for i=0; i<URIs.length; i++
-        get(URL+URIs[i])
-            if (response.status === 404)
-                return
-            else if (response.status === 200)
-                emails === lookForEmailLinks()
-                if (emails.length === 0)
-                    return
-                else
-                    return emails 
+__Response example__:
+
+```js
+{
+    "status": 200,
+    "result": {
+        "site": "https://www.zara.com/es/",
+        "socialLinks": {
+            "Facebook": "https://www.facebook.com/Zara",
+            "Instagram": "https://www.instagram.com/zara/",
+            "Pinterest": "https://es.pinterest.com/zaraofficial",
+            "Twitter": "https://twitter.com/zaraes"
+        }
+    }
+}
 ```
 
-1. Detect site language
-1. Generate URIs depending on the language to search for CONTACT or ABOUT page
-1. GET every URL+the URI. i.e url.com/about, url.com/contact
-1. In every call, search for links elements in the page, filter them and return them.
-1. Return results
+__Error example__:
 
-In _lookForEmailLinks()_ avoid using naive solutions like 'find in body all links, filter them searching for mailto:' as a lot of sites don't even tag their emails or don't have.
+```js
+{
+    "error": "No social links were found in https://www.google.com"
+}
+```
 
-2. MOBILEFETCHER
 
-So the problem in EFETCHER extends to MFETCHER. Mobile phones are not always tagged, so:
+TODO: 
 
-1. REGEX? __Use regex to fix a problem, now you've got two problems__
-1. Search based on tags? i.e '.phone' '.contact-phone' __EXPENSIVE AND BORING + NOT RELIABLE__
-1. Search based on element? i.e 'search for elements in body with a classname that includes _contact_' __COULD FUCKIN WORK__
-1. FUCKING PARSE the whole HTML looking for text elements that match a criteria. __EXPENSIVE + NOT ELEGANT + SHITTY__
-1. FUCKING WHOIS the site and look for contact info? __THAT SCALATED QUICKLY__
+* Finish DOCS
+* Track known bugs
+* Continue development
