@@ -17,16 +17,16 @@ Obviously, every site is different and the approach may be wrong in many parts, 
 ## Usage
 
 1. ```git clone``` the project.
-1. Create a ```.env``` file which specifies:
-**```PORT```
-**```CONSUMER_KEY``` - [Twitter]
-**```CONSUMER_SECRET``` - [Twitter]
-**```ACCESS_TOKEN``` - [Twitter]
-**```ACCESS_TOKEN_SECRET``` - [Twitter]
-1. npm install
-1. If you use nodemon: ```nodemon server```
-1. If not: ```node server/index``` (and then [install nodemon](https://www.npmjs.com/package/nodemon) 😉)
-1. Enjoy!
+1. Create a ```.env``` file which specifies:  
+**```PORT```  
+**```CONSUMER_KEY``` - [Twitter]  
+**```CONSUMER_SECRET``` - [Twitter]  
+**```ACCESS_TOKEN``` - [Twitter]  
+**```ACCESS_TOKEN_SECRET``` - [Twitter]  
+1. npm install  
+1. If you use nodemon: ```nodemon server```  
+1. If not: ```node server/index``` (and then [install nodemon](https://www.npmjs.com/package/nodemon) 😉)  
+1. Enjoy!  
 
 ## Docs
 
