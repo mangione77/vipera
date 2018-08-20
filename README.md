@@ -14,6 +14,20 @@ Vipera will help you by searching for you for social links in the sites you inpu
 
 Obviously, every site is different and the approach may be wrong in many parts, so I welcome suggestions and PR's or collaborations. I will track every bug I found here.
 
+## Usage
+
+1. ```git clone``` the project.
+1. Create a ```.env``` file which specifies:
+**```PORT```
+**```CONSUMER_KEY``` - [Twitter]
+**```CONSUMER_SECRET``` - [Twitter]
+**```ACCESS_TOKEN``` - [Twitter]
+**```ACCESS_TOKEN_SECRET``` - [Twitter]
+1. npm install
+1. If you use nodemon: ```nodemon server```
+1. If not: ```node server/index``` (and then [install nodemon](https://www.npmjs.com/package/nodemon) 😉)
+1. Enjoy!
+
 ## Docs
 
 The system is divided in two types of routes: ```crawler``` or ```social```. _Crawler_ endpoints will try to find social links, while _Social_ will pull the social links plus all the information it can find on those profiles.
