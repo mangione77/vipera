@@ -20,8 +20,20 @@ const userService = () => {
         }
     }
 
+    const storeUser = async (username, password, email, role) => {
+        try {
+            const newUser = new User({ username, password, email, role })
+            const savedUser = await newUser.save()
+            return savedUser
+        }
+        catch (err) {
+            throw (err)
+        }
+    }
+
     return {
-        getAllUsers
+        getAllUsers,
+        storeUser
     }
 }
 

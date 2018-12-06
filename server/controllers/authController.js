@@ -1,4 +1,4 @@
-const authService = require('../services')
+const { authService } = require('../services')
 const config = require('../config')()
 const CryptoJS = require('crypto-js')
 

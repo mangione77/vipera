@@ -1,18 +1,19 @@
 const { User } = require('../models')
-const { createJWT } = require('../helpers')
+const { createJWT } = require('../helpers/auth')
 const config = require('../config')()
 
 const authService = () => {
 
     const login = async (username, password) => {
         try {
-            const foundUser = await User.findOne({ username: username })
+            const foundUser = await User.findOne({ username: username }).lean()
             if (!foundUser) {
                 throw ({ status: 404, message: 'User not found' })
             }
             else {
                 if (foundUser.password === password) {
-                    const jwtConfig = { user: foundUser, JWT_SECRET: config.JWT_SECRET }
+                    delete foundUser.password
+                    const jwtConfig = { user: foundUser, JWT_SECRET: config.SALT }
                     const token = createJWT(jwtConfig)
                     return token
                 }
