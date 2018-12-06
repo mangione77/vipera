@@ -1,9 +1,8 @@
-const crawler = require('./startCrawl')
-const getTwitterInfo = require('./getTwitterInfo')
-const getInstagramInfo = require('./getInstagramInfo')
-const prepareUrl = require('./prepareUrl')
-const whoIs = require('./getWhoIs')
-const getEmails = require('./getEmails')
+const crawler = require('../socialLinks/startCrawl')
+const { getTwitterInfo, getInstagramInfo } = require('./index.js')
+const prepareUrl = require('../socialLinks/scrapers/prepareUrl')
+const { whoIs } = require('../OSINT')
+const getEmails = require('../socialLinks/scrapers/getEmails')
 
 const getFullInfo = async (url) => {
     try {

@@ -1,7 +1,7 @@
-const whois = require('whois')
+const who_is = require('whois')
 const parser = require('parse-whois')
 
-const getWhoIs = (site) => {
+const whoIs = (site) => {
     return new Promise((resolve, reject) => {
         let resultObj = {
             'domain_name': undefined,
@@ -17,7 +17,7 @@ const getWhoIs = (site) => {
             'admin_organization': undefined,
             'admin_phone': undefined
         }
-        whois.lookup(site,(err, data) => {
+        who_is.lookup(site,(err, data) => {
             if (err) reject(err)
             let arr = parser.parseWhoIsData(data)
             let result = []
@@ -79,4 +79,4 @@ const getWhoIs = (site) => {
     })
 }
 
-module.exports = getWhoIs
+module.exports = whoIs

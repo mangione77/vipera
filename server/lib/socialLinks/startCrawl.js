@@ -1,5 +1,5 @@
 const axios = require('axios')
-const searchInElement = require('./searchInElement')
+const { searchInElement } = require('./scrapers')
 
 startCrawl = async (url) => {
     try {

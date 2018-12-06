@@ -1,6 +1,5 @@
-const getTwitterInfo = require('../helpers/getTwitterInfo')
-const getInstagramInfo = require('../helpers/getInstagramInfo')
-const getFullInfo = require('../helpers/getFullInfo') 
+const { getTwitterInfo, getInstagramInfo, getFullInfo } = require('../lib/socialMedia') 
+
 const socialController = {}
 
 socialController.getTwitterInfo = async (req,res) => {

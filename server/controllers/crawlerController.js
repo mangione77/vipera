@@ -1,6 +1,5 @@
-const startCrawl = require('../helpers/startCrawl')
-const crawlMultiple = require('../helpers/crawlMultiple')
-const whoIs = require('../helpers/getWhoIs')
+const { startCrawl, crawlMultiple } = require('../lib/socialLinks')
+const { whoIs } = require('../lib/OSINT')
 const crawlerController = {}
 
 crawlerController.startNewCrawl = async (req,res) => {
